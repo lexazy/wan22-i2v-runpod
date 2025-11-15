@@ -22,11 +22,21 @@ WORKDIR /app
 # Clone le repo Wan 2.2
 RUN git clone https://github.com/Wan-Video/Wan2.2.git /app/Wan2.2
 
-# Installation des dépendances Python
+# Installation des dépendances Python essentielles
 WORKDIR /app/Wan2.2
 RUN pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 install --no-cache-dir "huggingface_hub[cli]"
+RUN pip3 install --no-cache-dir \
+    diffusers \
+    transformers \
+    accelerate \
+    pillow \
+    numpy \
+    opencv-python-headless \
+    imageio \
+    einops \
+    omegaconf \
+    safetensors \
+    "huggingface_hub[cli]"
 
 # Télécharger le modèle depuis ton Hugging Face
 RUN hf download Lexazy/wan22-i2v-a14b --local-dir /app/Wan2.2/models/Wan2.2-I2V-A14B
