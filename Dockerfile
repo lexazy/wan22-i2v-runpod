@@ -26,10 +26,10 @@ RUN git clone https://github.com/Wan-Video/Wan2.2.git /app/Wan2.2
 WORKDIR /app/Wan2.2
 RUN pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN pip3 install --no-cache-dir "huggingface_hub[cli]" modelscope
+RUN pip3 install --no-cache-dir "huggingface_hub[cli]"
 
-# Télécharger le modèle Wan2.2-I2V-A14B depuis Hugging Face
-RUN huggingface-cli download Wan-AI/Wan2.2-I2V-A14B --local-dir /app/Wan2.2/models/Wan2.2-I2V-A14B
+# Télécharger le modèle depuis ton Hugging Face
+RUN hf download Lexazy/wan22-i2v-a14b --local-dir /app/Wan2.2/models/Wan2.2-I2V-A14B
 
 # Copier le handler
 COPY handler.py /app/handler.py
