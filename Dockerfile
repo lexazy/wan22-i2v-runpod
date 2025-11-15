@@ -38,8 +38,8 @@ RUN pip3 install --no-cache-dir \
     safetensors \
     "huggingface_hub[cli]"
 
-# Télécharger le modèle depuis ton Hugging Face
-RUN hf download Lexazy/wan22-i2v-a14b --local-dir /app/Wan2.2/models/Wan2.2-I2V-A14B
+# Télécharger le modèle OFFICIEL depuis Wan-AI
+RUN hf download Wan-AI/Wan2.2-I2V-A14B --local-dir /app/Wan2.2/models/Wan2.2-I2V-A14B
 
 # Copier le handler
 COPY handler.py /app/handler.py
