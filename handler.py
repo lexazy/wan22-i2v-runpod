@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 WAN22_DIR = "/app/Wan2.2"
-MODEL_DIR = "/workspace/models/Wan2.2-TI2V-5B"  # ← MODÈLE LÉGER
+MODEL_DIR = "/app/models/Wan2.2-TI2V-5B"  # ← Modèle dans le Docker
 OUTPUT_DIR = "/app/Wan2.2/outputs"
 
 def generate_video(image_path, prompt, duration=5):
@@ -21,11 +21,11 @@ def generate_video(image_path, prompt, duration=5):
     # Créer le dossier de sortie
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
-    # Commande de génération pour TI2V-5B (modèle léger)
+    # Commande de génération pour TI2V-5B
     cmd = [
         "python3",
         f"{WAN22_DIR}/generate.py",
-        "--task", "ti2v-5b",  # ← TASK MODIFIÉE pour le modèle léger
+        "--task", "ti2v-5b",
         "--size", "1280*720",
         "--ckpt_dir", MODEL_DIR,
         "--image", image_path,
