@@ -6,11 +6,11 @@ import os
 from pathlib import Path
 
 WAN22_DIR = "/app/Wan2.2"
-MODEL_DIR = "/runpod-volume/models/Wan2.2-I2V-A14B"  # ← MODIFIÉ: Network Volume
+MODEL_DIR = "/workspace/models/Wan2.2-TI2V-5B"  # ← MODÈLE LÉGER
 OUTPUT_DIR = "/app/Wan2.2/outputs"
 
 def generate_video(image_path, prompt, duration=5):
-    """Génère une vidéo avec Wan 2.2 I2V"""
+    """Génère une vidéo avec Wan 2.2 TI2V-5B"""
     
     # Vérifier que le modèle existe
     if not os.path.exists(MODEL_DIR):
@@ -21,11 +21,11 @@ def generate_video(image_path, prompt, duration=5):
     # Créer le dossier de sortie
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     
-    # Commande de génération
+    # Commande de génération pour TI2V-5B (modèle léger)
     cmd = [
         "python3",
         f"{WAN22_DIR}/generate.py",
-        "--task", "i2v-A14B",
+        "--task", "ti2v-5b",  # ← TASK MODIFIÉE pour le modèle léger
         "--size", "1280*720",
         "--ckpt_dir", MODEL_DIR,
         "--image", image_path,
@@ -35,7 +35,7 @@ def generate_video(image_path, prompt, duration=5):
         "--offload_model", "True"
     ]
     
-    print(f"🎬 Génération vidéo avec Wan 2.2...")
+    print(f"🎬 Génération vidéo avec Wan 2.2 TI2V-5B...")
     print(f"📸 Image: {image_path}")
     print(f"💬 Prompt: {prompt}")
     
@@ -95,7 +95,8 @@ def handler(job):
             "video": video_b64,
             "format": "mp4",
             "duration": 5,
-            "resolution": "1280x720"
+            "resolution": "1280x720",
+            "model": "TI2V-5B"
         }
     
     except Exception as e:
