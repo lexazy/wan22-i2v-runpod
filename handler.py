@@ -6,11 +6,17 @@ import os
 from pathlib import Path
 
 WAN22_DIR = "/app/Wan2.2"
-MODEL_DIR = "/app/Wan2.2/models/Wan2.2-I2V-A14B"
+MODEL_DIR = "/runpod-volume/models/Wan2.2-I2V-A14B"  # ← MODIFIÉ: Network Volume
 OUTPUT_DIR = "/app/Wan2.2/outputs"
 
 def generate_video(image_path, prompt, duration=5):
     """Génère une vidéo avec Wan 2.2 I2V"""
+    
+    # Vérifier que le modèle existe
+    if not os.path.exists(MODEL_DIR):
+        raise Exception(f"❌ Modèle introuvable: {MODEL_DIR}")
+    
+    print(f"✅ Modèle trouvé: {MODEL_DIR}")
     
     # Créer le dossier de sortie
     os.makedirs(OUTPUT_DIR, exist_ok=True)

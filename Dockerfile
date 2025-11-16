@@ -4,6 +4,7 @@ FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 # Variables d'environnement
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
+ENV HF_HOME=/runpod-volume/huggingface
 
 # Installation des dépendances système
 RUN apt-get update && apt-get install -y \
@@ -38,8 +39,8 @@ RUN pip3 install --no-cache-dir \
     safetensors \
     "huggingface_hub[cli]"
 
-# Télécharger le modèle OFFICIEL depuis Wan-AI
-RUN hf download Wan-AI/Wan2.2-I2V-A14B --local-dir /app/Wan2.2/models/Wan2.2-I2V-A14B
+# Le modèle sera dans le Network Volume (pas de téléchargement pendant le build)
+# Chemin attendu: /runpod-volume/models/Wan2.2-I2V-A14B
 
 # Copier le handler
 COPY handler.py /app/handler.py
